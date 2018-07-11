@@ -1,13 +1,17 @@
-{% extends 'accounts/auth.html' %}
- {% block auth %}
-<form>
+{% extends 'accounts/auth.html' %} {% block auth %}
+<form action="" method="POST">
+    {% csrf_token %}
     <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" aria-label="Enter username" placeholder="Enter username">
+        {{ form.username.errors }} {{ form.username.label_tag }}
+        <input type="text" class="form-control" name="{{ form.username.html_name }}" autofocus maxlength="254" required id="{{ form.username.id_for_label }}"> {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" aria-label="Enter password" placeholder="Enter password">
+        {{ form.password.errors }} {{ form.password.label_tag }}
+        <input type="password" class="form-control" name="{{ form.password.html_name }}" required id="{{ form.password.id_for_label }}"> {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -18,5 +22,6 @@
         </div>
     </div>
     <button style="margin-top: 25px;" type="submit" class="btn btn-primary w-25">Submit</button>
+    <input type="hidden" name="next" value="{{ next }}" />
 </form>
 {% endblock auth %}
