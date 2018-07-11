@@ -1,0 +1,26 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto Mono', monospace !important;
+    height: 100%;
+    padding: 30px;
+    background-color: #f2b63a !important;
+}
+
+#expense-img {
+    width: 100%;
+    height: auto;
+}
+
+.btn-primary {
+    background-color: #555968 !important;
+    border-color: #262939 !important;
+}
+
+.v-line{
+    height: 94%;
+    width: 1px;
+    background-color: #ccc;
+}
