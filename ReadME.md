@@ -14,4 +14,11 @@
 ```
     pipenv install
 ```
-
+4. add secrets.json
+``` 
+    cp docs/extras/secrets_example.json secrets.json
+```
+5. add local.py
+```
+    cp docs/extras/local_example.py website/settings/local.py
+```
