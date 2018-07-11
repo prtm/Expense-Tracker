@@ -1,0 +1,37 @@
+{% extends 'accounts/base.html' %} {% load static %} {% block title %} User Login {% endblock title %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}"> {% endblock head %} {% block body %}
+
+<div class="container h-100">
+
+    <div class="row h-100">
+        <div class="card col-md-12 my-auto">
+            <div class="row card-body">
+                <div class="col-md-6">
+                    <div class="card-title text-center">
+                        <strong>User Login</strong>
+                    </div>
+                    <div class="text-secondary w-100 text-center">
+                        <i>Don't share your passwords</i>
+                    </div>
+                    <img class="img-fluid" id="expense-img" src="{% static 'images/saving.png' %}" alt="Expense Tracker Image">
+                </div>
+                <div class="col-md-1">
+                    <div class="v-line"></div>
+                </div>
+                <div class="col-md-5">
+                    <img class="img-fluid d-block mx-auto" src="{% static 'images/expense_logo.png' %}" alt="expense logo" width="140" height="140">
+                    
+                    {% block auth %}
+                        
+                    {% endblock auth %}
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock body %}

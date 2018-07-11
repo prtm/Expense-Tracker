@@ -1,22 +1,17 @@
-{% extends 'accounts/auth.html' %}
- {% block auth %}
+{% extends 'accounts/auth.html' %} {% block auth %}
 <form>
     <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username" aria-label="Enter username" placeholder="Enter username">
     </div>
     <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" aria-label="Enter email" placeholder="Enter email">
+        </div>
+    <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" aria-label="Enter password" placeholder="Enter password">
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <a href="">Forgot Password?</a>
-        </div>
-        <div class="col-sm-6 text-right">
-            <a href="">Register</a>
-        </div>
-    </div>
-    <button style="margin-top: 25px;" type="submit" class="btn btn-primary w-25">Submit</button>
+    <button style="margin-top: 15px;" type="submit" class="btn btn-primary w-25">Submit</button>
 </form>
 {% endblock auth %}
