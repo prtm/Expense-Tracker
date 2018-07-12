@@ -1,17 +1,14 @@
 {% extends 'accounts/auth.html' %} {% block auth %}
-<form>
+<form method="POST">
+    {% csrf_token %} {% for field in form %}
     <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" aria-label="Enter username" placeholder="Enter username">
+        {{ field.errors }} {{ field.label_tag }} {{ field }}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
     </div>
-    <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" aria-label="Enter email" placeholder="Enter email">
-        </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" aria-label="Enter password" placeholder="Enter password">
-    </div>
+    {% endfor %}
     <button style="margin-top: 15px;" type="submit" class="btn btn-primary w-25">Submit</button>
+    <input type="hidden" name="next" value="{{ next }}" />
 </form>
 {% endblock auth %}
