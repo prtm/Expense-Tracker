@@ -9,10 +9,6 @@ from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -26,6 +22,8 @@ INSTALLED_APPS = [
     'expense_manager',
 ]
 
+
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -36,8 +34,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# root url
 ROOT_URLCONF = 'website.urls'
 
+# templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -89,7 +89,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-# decouple is also used
+# get secrets from secrets.json or decouple can be used
 with open('secrets.json') as f:
     secrets = json.loads(f.read())  # secrets dictionary
 
@@ -100,3 +100,10 @@ def get_secret(setting, secrets=secrets):
     except KeyError:
         error_msg = 'Set the {0} environment variable'.format(setting)
     raise ImproperlyConfigured(error_msg)
+
+
+# login urls
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
