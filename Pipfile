@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 mysqlclient = "*"
+pillow = "*"
 
 [dev-packages]
 pylint = "*"
