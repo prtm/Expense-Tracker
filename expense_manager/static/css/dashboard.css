@@ -40,7 +40,44 @@ nav {
     border-top-right-radius: 3px;
 }
 
+.txt-primary {
+    color: #262939;
+}
+
 /* dashboard */
 
+.mt-15 {
+    margin-top: 15px;
+}
 
+.mb-15 {
+    margin-top: 15px;
+}
 
+.first-row {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.col-br {}
+
+.col-br:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+
+.col-md-3:hover {
+    cursor: pointer;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.list-ritem {
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.featured {
+    color: #111;
+    background-color: rgba(0, 0, 0, .03);
+}

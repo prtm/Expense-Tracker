@@ -1,8 +1,50 @@
+{% load static %}
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-4">
             <h4>Dashboard</h4>
         </div>
     </div>
-    <hr/>
+    <div class="row first-row" style="padding-top: 15px;padding-bottom: 15px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-3 col-br">
+            <img src="{% static 'images/dollar.png' %}" class="img-fluid d-block mx-auto" width="60" height="60" alt="expense logo">
+            <h6 class="txt-primary text-center">New Expense</h6>
+        </div>
+        <div class="col-md-3 col-br">
+            <img src="{% static 'images/dollar.png' %}" class="img-fluid d-block mx-auto" width="60" height="60" alt="expense logo">
+            <h6 class="txt-primary text-center">New Report</h6>
+        </div>
+        <div class="col-md-3 col-br">
+            <img src="{% static 'images/dollar.png' %}" class="img-fluid d-block mx-auto" width="60" height="60" alt="expense logo">
+            <h6 class="txt-primary text-center">New Expense</h6>
+        </div>
+
+    </div>
+    <div class="container mt-15" style="border: 1px solid #cccccc;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h6 class="text-default mt-15">Report This Month</h6>
+            </div>
+        </div>
+        <hr>
+        <div class="row mb-15">
+            <div class="col-md-2 col-br">
+                <h6 class="text-muted text-center">Total</h6>
+                <h6 class="txt-primary text-center">$112</h6>
+            </div>
+            <div class="col-md-4 col-br">
+                <h6 class="text-success text-center">Budget</h6>
+                <h6 class="txt-primary text-center">$110</h6>
+            </div>
+            <div class="col-md-4 col-br">
+                <h6 class="text-danger text-center">Remaining</h6>
+                <h6 class="txt-primary text-center">-$2</h6>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-15">
+        <div class="col-sm-12 text-center">Top Expense This Month</div>
+    </div>
+    {% include 'expense_manager/expense_list.html' %}
 </div>
