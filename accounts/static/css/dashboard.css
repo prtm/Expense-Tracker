@@ -1,0 +1,31 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto Mono', monospace !important;
+    height: 100%;
+    padding: 30px;
+    background-color: #f2b63a !important;
+}
+
+.btn-primary {
+    background-color: #555968 !important;
+    border-color: #262939 !important;
+}
+
+.drawer{
+    background-color: #262939;
+    padding: 15px !important;
+}
+
+a{
+    color: #f2b63a !important;
+}
+
+a.active{
+    color: #fff !important;
+    background-color: #f2b63a !important;
+}
+
+
