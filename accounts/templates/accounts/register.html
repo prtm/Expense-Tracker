@@ -1,4 +1,17 @@
-{% extends 'accounts/auth.html' %} {% block auth %}
+{% extends 'accounts/auth.html' %}
+
+
+{% block title %}
+    User Registration
+{% endblock title %}
+    
+{% block heading %}
+    Registration
+{% endblock heading %}
+
+{% block auth %}
+
+    
 <form method="POST">
     {% csrf_token %} {% for field in form %}
     <div class="form-group">

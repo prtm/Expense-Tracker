@@ -1,5 +1,5 @@
-{% extends 'accounts/base.html' %} {% load static %} {% block title %} User Login {% endblock title %} {% block head %}
-<link rel="stylesheet" href="{% static 'css/login.css' %}"> {% endblock head %} {% block body %}
+{% extends 'accounts/base.html' %} {% load static %}  {% block head %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}"> {% endblock head %} {% block body %}
 
 <div class="container h-100">
 
@@ -8,7 +8,11 @@
             <div class="row card-body">
                 <div class="col-md-6">
                     <div class="card-title text-center">
-                        <strong>User Login</strong>
+                        <strong>
+                        {% block heading %}
+                            
+                        {% endblock heading %}
+                            </strong>
                     </div>
                     <div class="text-secondary w-100 text-center">
                         <i>Don't share your passwords</i>

@@ -1,4 +1,14 @@
-{% extends 'accounts/auth.html' %} {% block auth %}
+{% extends 'accounts/auth.html' %}
+
+{% block title %}
+    User Login
+{% endblock title %}
+    
+{% block heading %}
+    Login
+{% endblock heading %}
+    
+{% block auth %}
 <form action="" method="POST">
     {% csrf_token %}
     <div class="form-group">
@@ -18,7 +28,7 @@
             <a href="">Forgot Password?</a>
         </div>
         <div class="col-sm-6 text-right">
-            <a href="">Register</a>
+            <a href="{% url 'register' %}">Register</a>
         </div>
     </div>
     <button style="margin-top: 25px;" type="submit" class="btn btn-primary w-25">Submit</button>
