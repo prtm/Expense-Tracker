@@ -14,18 +14,33 @@ body {
     border-color: #262939 !important;
 }
 
-.drawer{
+.drawer {
     background-color: #262939;
     padding: 15px !important;
 }
 
-a{
+.nav-pills a {
     color: #f2b63a !important;
 }
 
-a.active{
+a.active {
     color: #fff !important;
     background-color: #f2b63a !important;
 }
+
+.p-15 {
+    padding: 15px;
+}
+
+nav {
+    margin-left: -15px;
+    margin-right: -15px;
+    border-bottom: 1px solid #ccc;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+/* dashboard */
+
 
 

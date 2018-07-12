@@ -1,6 +1,5 @@
 # core django
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django import forms
@@ -23,7 +22,7 @@ def register(request):
                 User.objects.create_user(username, email, password)
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return redirect('dashboard')
+                return redirect('expense_manager:dashboard')
             else:
                 raise forms.ValidationError(
                     'username with that email or password already exists')
@@ -31,6 +30,3 @@ def register(request):
         form = UserRegistrationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
-
-def dashboard(request):
-    return HttpResponse('Welcome')

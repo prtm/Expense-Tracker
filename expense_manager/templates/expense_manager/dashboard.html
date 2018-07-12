@@ -1,7 +1,8 @@
-{% extends 'accounts/base.html' %} {% block title %} Dashboard {% endblock title %} {% load static %} {% block head %}
+{% extends 'website/base.html' %} {% block title %} Dashboard {% endblock title %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}"> {% endblock head %} {% block body %}
 
 <div class="container-fluid">
+    {% include 'expense_manager/nav_bar.html' %}
     <div class="row">
         <div class="col-md-3 drawer shadow my-auto">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -19,13 +20,13 @@
         </div>
         <div class="col-md-9 shadow" style="background-color: white;">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
-
+                <div class="tab-pane fade show active p-15" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                    {% include 'expense_manager/dashboard_tab_content.html' %}
                 </div>
-                <div class="tab-pane fade" id="v-pills-all-expenses" role="tabpanel" aria-labelledby="v-pills-all-expenses-tab"></div>
-                <div class="tab-pane fade" id="v-pills-report" role="tabpanel" aria-labelledby="v-pills-report-tab"></div>
-                <div class="tab-pane fade" id="v-pills-activies" role="tabpanel" aria-labelledby="v-pills-activies-tab"></div>
-                <div class="tab-pane fade" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-contact-tab"></div>
+                <div class="tab-pane fade p-15" id="v-pills-all-expenses" role="tabpanel" aria-labelledby="v-pills-all-expenses-tab"></div>
+                <div class="tab-pane fade p-15" id="v-pills-report" role="tabpanel" aria-labelledby="v-pills-report-tab"></div>
+                <div class="tab-pane fade p-15" id="v-pills-activies" role="tabpanel" aria-labelledby="v-pills-activies-tab"></div>
+                <div class="tab-pane fade p-15" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-contact-tab"></div>
             </div>
         </div>
     </div>

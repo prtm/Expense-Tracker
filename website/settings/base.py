@@ -18,8 +18,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'expense_manager',
+    'accounts.apps.AccountsConfig',
+    'expense_manager.apps.ExpenseManagerConfig',
+    'website',
 ]
 
 
