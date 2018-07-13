@@ -52,6 +52,7 @@ nav {
 .mb-15 {
     margin-top: 15px;
 }
+
 /* 
 ml-5{
     margin-left: 5px;
@@ -91,4 +92,14 @@ ml-5{
 
 .fa-trash-alt:hover {
     cursor: pointer;
+}
+
+.col-name {}
+
+.list-ritem:hover {
+    background-color: #f2f2f2;
+}
+
+.list-ritem .col-name:hover {
+    text-decoration: underline;
 }
