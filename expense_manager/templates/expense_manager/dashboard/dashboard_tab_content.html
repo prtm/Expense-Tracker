@@ -7,7 +7,7 @@
     </div>
     <div class="row first-row" style="padding-top: 15px;padding-bottom: 15px;">
         <div class="col-md-1"></div>
-        <div class="col-md-3 col-br">
+        <div class="col-md-3 col-br" data-toggle="modal" data-target="#addModal">
             <img src="{% static 'images/dollar.png' %}" class="img-fluid d-block mx-auto" width="60" height="60" alt="expense logo">
             <h6 class="txt-primary text-center">New Expense</h6>
         </div>
@@ -46,5 +46,5 @@
     <div class="row mt-15">
         <div class="col-sm-12 text-center">Top 10 Expense This Month</div>
     </div>
-    {% include 'expense_manager/dashboard/expense_list.html' %}
+    {% include 'expense_manager/dashboard/expense_list.html' %} {% include 'expense_manager/modal/add.html' %}
 </div>

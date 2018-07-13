@@ -1,0 +1,7 @@
+{% for field in form %}
+<div class="form-group">
+    {{ field.errors }} {{ field.label_tag }} {{ field }} {% if field.help_text %}
+    <p class="help">{{ field.help_text|safe }}</p>
+    {% endif %}
+</div>
+{% endfor %}
