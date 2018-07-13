@@ -3,9 +3,13 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, Http404
+# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.files.storage import FileSystemStorage
+
 
 # project
 from .forms import ExpenseForm
+from .models import Expense
 
 
 @login_required
@@ -27,9 +31,22 @@ def dashboard(request):
                     expense.save()
             else:
                 expense.save()
-    elif request.method == "DELETE":
-        uid = request.DELETE.get('uid')
-        pass
     else:
         form = ExpenseForm()
-    return render(request, 'expense_manager/dashboard/dashboard.html', {'form': form})
+    top_10 = Expense.expenses.top_10_month_expenses(request.user)
+    all_expenses = Expense.expenses.all_expenses(request.user)[:10]
+    return render(request, 'expense_manager/dashboard/dashboard.html', {'form': form, 'top_10': top_10, 'all_expenses': all_expenses})
+
+
+@login_required
+def uploadImage(request):
+    if request.method == 'POST' and request.FILES.get('photo'):
+        photo = request.FILES['photo']
+        fs = FileSystemStorage()
+        filename = fs.save(photo.name, photo)
+        # uploaded_file_url = fs.url(filename)
+        return JsonResponse({
+            'uploaded_file_url': filename
+        })
+    print(request.Files)
+    return JsonResponse('Error Not Found!')
