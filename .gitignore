@@ -2,7 +2,7 @@
 secrets.json
 local.py
 prod.py
-expense/
+media/
 
 # Created by https://www.gitignore.io/api/django,python
 
