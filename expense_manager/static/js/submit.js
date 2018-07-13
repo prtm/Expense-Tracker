@@ -25,7 +25,8 @@ function clearformAddEdit() {
     $('#add-edit-expense').data('uid', '')
 }
 
-function openAddEditModal(isAdd, uid) {
+// open add edit modal and change heading and button text
+function openAddEditModal(isAdd, uid, name, price) {
     if (isAdd) {
         //add modal open
         $('#addEditModalLabel').text('Add Expense')
@@ -35,6 +36,8 @@ function openAddEditModal(isAdd, uid) {
         $('#addEditModalLabel').text('Edit Expense')
         $('#add-edit-expense').text('Update')
         $('#add-edit-expense').data('uid', uid)
+        $('#id_name').val(name)
+        $('#id_price').val(parseFloat(price.substr(1)))
     }
     $('#addEditModal').modal('show');
 }
@@ -152,7 +155,9 @@ function editExpense(uid, data) {
 function editIconListener() {
     $('.fa-edit').on('click', function (e) {
         var uid = $(this).closest('div').parent().find('.fa-trash-alt').data('uid');
-        openAddEditModal(false, uid)
+        var name = $(this).closest('div').parent().find('.col-sm-4').text();
+        var price = $(this).closest('div').parent().find('.text-center').text();
+        openAddEditModal(false, uid, name, price)
     });
 }
 
@@ -207,7 +212,7 @@ function closeAddEditModalBtnListener() {
 }
 
 
-
+// on document ready set listeners
 $(function () {
     addContainerListener()
     editIconListener()
