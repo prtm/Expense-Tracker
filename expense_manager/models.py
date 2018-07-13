@@ -38,6 +38,9 @@ class UserExpenseQuerySet(models.QuerySet):
     def all_expenses(self, user):
         return self.filter(user=user).order_by('-created')
 
+    def total_expense(self, user, month):
+        return self.filter(user=user, created__month=month).aggregate(total_expense=models.Sum('price'))
+
     def top_10_month_expenses(self, user):
         return self.filter(user=user, created__month=date.today().month).order_by('-price')[:10]
 
@@ -48,6 +51,9 @@ class UserExpensesManager(models.Manager):
 
     def all_expenses(self, user):
         return self.get_queryset().all_expenses(user)
+
+    def total_expense(self, user, month):
+        return self.get_queryset().total_expense(user, month)
 
     def top_10_month_expenses(self, user):
         return self.get_queryset().top_10_month_expenses(user)
@@ -60,7 +66,8 @@ class Expense(TimeStampedModel):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     photo = models.ImageField(upload_to='media/', null=True, blank=True)
     objects = models.Manager()
-    expenses = UserExpensesManager()
+    manager = UserExpensesManager()
+
     class Meta:
         ordering = ('-created',)
 
