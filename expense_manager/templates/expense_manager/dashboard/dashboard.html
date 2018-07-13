@@ -1,5 +1,7 @@
 {% extends 'website/base.html' %} {% block title %} Dashboard {% endblock title %} {% load static %} {% block head %}
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}"> {% endblock head %} {% block body %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<script src="{% static 'js/submit.js' %}"></script>
+{% endblock head %} {% block body %}
 
 <div class="container-fluid">
     {% include 'expense_manager/nav_bar.html' %}
