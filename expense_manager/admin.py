@@ -1,13 +1,11 @@
+# core django
 from django.contrib import admin
 from django.db.models import Q
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-# core django
-from .models import Expense
-
-
-from django.contrib import admin
+# project related
+from .models import Expense, Budget
 
 
 class ImageFilter(admin.SimpleListFilter):
@@ -36,9 +34,9 @@ class ImageFilter(admin.SimpleListFilter):
 
 @admin.register(Expense)
 class ExpenseAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'created', 'modified')
+    list_display = ('user', 'name', 'price', 'created', 'modified')
     list_filter = ('created', 'modified', ImageFilter)
-    search_fields = ('name', 'price')
+    search_fields = ('user__username', 'name', 'price')
     ordering = ('-modified', '-created')
 
     def photo(self, obj):
@@ -46,3 +44,11 @@ class ExpenseAdmin(admin.ModelAdmin):
             url=obj.headshot.url,
             width=obj.headshot.width,
             height=obj.headshot.height,))
+
+
+@admin.register(Budget)
+class BudgetAdmin(admin.ModelAdmin):
+    list_display = ('user', 'budget', 'month', 'created', 'modified')
+    list_filter = ('created', 'modified')
+    search_fields = ('user__username', 'budget', 'month')
+    ordering = ('-modified', '-created')
