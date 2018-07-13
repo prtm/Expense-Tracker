@@ -23,10 +23,6 @@ function addExpense(data) {
         async: true,
         cache: false,
         contentType: 'application/json',
-        enctype: 'multipart/form-data',
-        header: {
-            "X-CSRFToken": getCookie('csrftoken')
-        },
         beforeSend: function () {
             console.log('Uploading...');
             // $('.upload-progress').show();
@@ -85,10 +81,55 @@ function addExpenseBtnListener() {
     });
 }
 
+function editExpenseBtnListener() {
+    $('.fa-edit').on('click', function (e) {
+
+    });
+}
+
+function deleteExpense(data) {
+    $.ajax({
+        url: '/api/v1/expense/' + data + "/",
+        type: 'DELETE',
+        async: true,
+        cache: false,
+        contentType: 'application/json',
+        beforeSend: function () {
+            console.log('Uploading...');
+            // $('.upload-progress').show();
+        },
+        complete: function (response) {
+            // $('.upload-progress').hide();
+            console.log("complete", response.statusText)
+            location.reload()
+        }
+    });
+}
+
+function deleteExpenseBtnListener() {
+    $('#delete-expense').on('click', function (e) {
+        var uid = $(this).data('uid')
+        deleteExpense(uid)
+    });
+}
+
+
+function trashIconListener() {
+    $('.fa-trash-alt').on('click', function (e) {
+        var name = $(this).closest('div').parent().find('.col-sm-4').text();
+        var price = $(this).closest('div').parent().find('.text-center').text();
+        $('#delete-name').text("Name: " + name)
+        $('#delete-price').text("Price: " + price)
+        $('#delete-expense').data('uid', $(this).data('uid'))
+    });
+}
 
 
 
 
 $(function () {
     addExpenseBtnListener()
+    editExpenseBtnListener()
+    deleteExpenseBtnListener()
+    trashIconListener()
 });
