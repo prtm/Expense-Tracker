@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-3 col-br">
             <img src="{% static 'images/dollar.png' %}" class="img-fluid d-block mx-auto" width="60" height="60" alt="expense logo">
-            <h6 class="txt-primary text-center">New Expense</h6>
+            <h6 class="txt-primary text-center">Budget</h6>
         </div>
 
     </div>
@@ -46,5 +46,9 @@
     <div class="row mt-15">
         <div class="col-sm-12 text-center">Top 10 Expense This Month</div>
     </div>
-    {% include 'expense_manager/dashboard/expense_list.html' %} {% include 'expense_manager/modal/add.html' %}
+    <!-- top 10 expense this month -->
+    {% include 'expense_manager/dashboard/expense_list.html' with expenses=top_10 %}
+    
+    <!-- add modal -->
+    {% include 'expense_manager/modal/add.html' %}
 </div>

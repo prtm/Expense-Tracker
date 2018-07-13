@@ -1,10 +1,29 @@
 <div class="row mt-15 featured list-ritem">
     <div class="col-sm-4">Name</div>
-    <div class="col-sm-4 text-center">Price</div>
-    <div class="col-sm-4 text-right">Budget Left</div>
+    <div class="col-sm-3 text-center">Price</div>
+    <div class="col-sm-3 text-right">Budget Left</div>
 </div>
+
+{% for expense in expenses %}
 <div class="row list-ritem">
-    <div class="col-sm-4">Hello</div>
-    <div class="col-sm-4 text-center">$4</div>
-    <div class="col-sm-4 text-right">$23</div>
+    <div class="col-sm-4" data-uid='{{ expense.pk }}'>{{ expense.name }}</div>
+    <div class="col-sm-3 text-center" data-uid='{{ expense.pk }}'>₹{{ expense.price }}</div>
+    <div class="col-sm-3 text-right" data-uid='{{ expense.pk }}'>₹{{ expense.get_budget }}</div>
+    <div class="col-sm-1 text-right" style="padding-right: 0">
+        <span>
+            <i class="fas fa-edit"></i>
+        </span>
+    </div>
+    <div class="col-sm-1 text-right">
+        <span>
+            <i class="fas fa-trash-alt"></i>
+        </span>
+    </div>
+</div>
+{% endfor %}
+
+<div class="row mt-15">
+    <div class="col-sm-2 offset-5">
+        <button type="button" class="btn btn-default" hidden>Show More</button>
+    </div>
 </div>

@@ -28,7 +28,7 @@
                     {% include 'expense_manager/dashboard/dashboard_tab_content.html' %}
                 </div>
                 <div class="tab-pane fade p-15" id="v-pills-all-expenses" role="tabpanel" aria-labelledby="v-pills-all-expenses-tab">
-                    {% include 'expense_manager/dashboard/all_expenses_tab_content.html' %}
+                    {% include 'expense_manager/dashboard/expense_list.html' with expenses=all_expenses %}
                 </div>
                 <div class="tab-pane fade p-15" id="v-pills-report" role="tabpanel" aria-labelledby="v-pills-report-tab">
                     {% include 'expense_manager/dashboard/report_tab_content.html' %}
