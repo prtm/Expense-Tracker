@@ -105,6 +105,6 @@ def get_secret(setting, secrets=secrets):
 
 # login urls
 
-LOGIN_REDIRECT_URL = 'dashboard'
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'expense_manager:dashboard'
+LOGIN_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
