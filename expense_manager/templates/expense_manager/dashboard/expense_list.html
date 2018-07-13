@@ -8,9 +8,9 @@
 
 {% for expense in expenses %}
 <div class="row list-ritem">
-    <div class="col-sm-4">{{ expense.name }}</div>
+    <div class="col-sm-4 col-name">{{ expense.name }}</div>
     <div class="col-sm-5 text-center">₹{{ expense.price }}</div>
-    <div class="col-sm-2 text-center" style="padding-right: 0">
+    <div class="col-sm-2 text-center" data-toggle="modal" style="padding-right: 0">
         <span>
             <i class="fas fa-edit"></i>
         </span>
