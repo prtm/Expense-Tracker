@@ -1,3 +1,6 @@
+# stdlib
+from datetime import date
+
 # core django
 from django.db import models
 from django.contrib.auth.models import User
@@ -27,10 +30,27 @@ class Budget(TimeStampedModel):
         else:
             raise ValidationError('Incorrect Month')
 
-    class Meta():
+    class Meta:
         unique_together = ('user', 'month')
 
-# Expense Model
+
+class UserExpenseQuerySet(models.QuerySet):
+    def all_expenses(self, user):
+        return self.filter(user=user).order_by('-created')
+
+    def top_10_month_expenses(self, user):
+        return self.filter(user=user, created__month=date.today().month).order_by('-price')[:10]
+
+
+class UserExpensesManager(models.Manager):
+    def get_queryset(self):
+        return UserExpenseQuerySet(self.model, using=self._db)
+
+    def all_expenses(self, user):
+        return self.get_queryset().all_expenses(user)
+
+    def top_10_month_expenses(self, user):
+        return self.get_queryset().top_10_month_expenses(user)
 
 
 class Expense(TimeStampedModel):
@@ -39,5 +59,12 @@ class Expense(TimeStampedModel):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     photo = models.ImageField(upload_to='expense', null=True, blank=True)
+    objects = models.Manager()
+    expenses = UserExpensesManager()
+    class Meta:
+        ordering = ('-created',)
 
-    # def get_budget(self):
+    @property
+    def get_budget(self):
+        budget = self.user.budget.filter(month=self.created.month)
+        return budget if budget else ''
