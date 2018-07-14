@@ -119,7 +119,7 @@ function addEditExpenseBtnListener() {
 
 // open add modal 
 function addContainerListener() {
-    $('#add-container').on('click', function (e) {
+    $('#addContainer').on('click', function (e) {
         openAddEditModal(true)
     });
 }
