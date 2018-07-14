@@ -41,7 +41,6 @@ def dashboard(request):
             else:
                 expense.save()
     else:
-        print(resource.render_list(request))
         form = ExpenseForm()
     
 

@@ -94,7 +94,7 @@ function addEditExpenseBtnListener() {
                     data['photo'] = response['uploaded_file_url']
                     // call add edit expense based on uid found or not
                     var uid = $('#add-edit-expense').data('uid')
-                    if (uid == '' | uid == null | uid == undefined) {
+                    if (uid == '' || uid == null || uid == undefined) {
                         addExpense(data)
                     } else {
                         editExpense(uid, data)
@@ -107,7 +107,7 @@ function addEditExpenseBtnListener() {
         } else {
             // call add edit expense based on uid found or not
             var uid = $('#add-edit-expense').data('uid')
-            if (uid == '' | uid == null | uid == undefined) {
+            if (uid == '' || uid == null || uid == undefined) {
                 addExpense(data)
             } else {
                 editExpense(uid, data)
