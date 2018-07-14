@@ -1,4 +1,6 @@
 # stdlib
+import json
+# import copy
 from datetime import date
 
 # core django
@@ -13,7 +15,11 @@ from django.core.files.storage import FileSystemStorage
 # project
 from .forms import ExpenseForm
 from .models import Expense, Budget
+from .resources import ExpenseResource
 
+
+
+resource = ExpenseResource()
 
 @login_required
 def dashboard(request):
@@ -35,9 +41,10 @@ def dashboard(request):
             else:
                 expense.save()
     else:
+        print(resource.render_list(request))
         form = ExpenseForm()
-    top_10 = Expense.manager.top_10_month_expenses(request.user)
-    all_expenses = Expense.manager.all_expenses(request.user)[:10]
+    
+
 
     # report summary
     total_expense = Expense.manager.total_expense(
@@ -49,6 +56,16 @@ def dashboard(request):
     else:
         budget = 0
     remaining = total_expense - budget
+
+
+
+
+    # all expenses including filter
+    all_expenses = json.loads(resource.render_list(request)).get('objects')
+    # all_expenses = Expense.manager.all_expenses(request.user)
+
+    # top 10 including filter
+    top_10 = Expense.manager.top_10_month_expenses(request.user)
     return render(request, 'expense_manager/dashboard/dashboard.html', {'form': form, 'top_10': top_10,
                                                                         'all_expenses': all_expenses,
                                                                         'total_expense': total_expense,

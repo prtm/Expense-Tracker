@@ -35,10 +35,12 @@ class ExpenseResource(ModelResource):
         resource_name = 'expense'
         authorization = DjangoAuthorization()
         filtering = {
-            'created': ['exact', 'range', 'gte'],
-            'price': ALL
+            'name': ALL,
+            'price': ALL,
+            'photo': ALL,
+            'created': ['exact', 'range', 'gte']
         }
-
+        ordering = ['price']
         excludes = ('id', 'created', 'modified')
 
     def get_object_list(self, request):
@@ -47,3 +49,11 @@ class ExpenseResource(ModelResource):
     def hydrate(self, bundle):
         bundle.obj.user = bundle.request.user
         return bundle
+
+    def render_detail(self, request, pk):
+        resp = self.get_detail(request, pk=pk)
+        return resp.content
+
+    def render_list(self, request):
+        resp = self.get_list(request)
+        return resp.content
