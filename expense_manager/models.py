@@ -27,6 +27,9 @@ class Budget(TimeStampedModel):
     def save(self, *args, **kwargs):
         if self.month >= 1 and self.month <= 12:
             super(Budget, self).save(*args, **kwargs)
+        elif self.month is None:
+            self.month = date.today().month
+            super(Budget, self).save(*args, **kwargs)
         else:
             raise ValidationError('Incorrect Month')
 
