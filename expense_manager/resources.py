@@ -57,3 +57,44 @@ class ExpenseResource(ModelResource):
     def render_list(self, request):
         resp = self.get_list(request)
         return resp.content
+
+
+    # https://github.com/django-tastypie/django-tastypie/issues/524
+    # has image --> check if image blank --> ne filter required
+    def build_filters(self, filters=None):
+        """
+        First, separate out normal filters and the __ne operations
+        """
+        if not filters:
+            return filters
+
+        applicable_filters = {}
+
+        # Normal filtering
+        filter_params = dict([(x, filters[x]) for x in filter(
+            lambda x: not x.endswith('__ne'), filters)])
+        applicable_filters['filter'] = super(
+            type(self), self).build_filters(filter_params)
+
+        # Exclude filtering
+        exclude_params = dict([(x[:-4], filters[x])
+                               for x in filter(lambda x: x.endswith('__ne'), filters)])
+        applicable_filters['exclude'] = super(
+            type(self), self).build_filters(exclude_params)
+
+        return applicable_filters
+
+    def apply_filters(self, request, applicable_filters):
+        """
+        Distinguish between normal filters and exclude filters
+        """
+        objects = self.get_object_list(request)
+
+        f = applicable_filters.get('filter')
+        if f:
+            objects = objects.filter(**f)
+        e = applicable_filters.get('exclude')
+        if e:
+            for exclusion_filter, value in e.items():
+                objects = objects.exclude(**{exclusion_filter: value})
+        return objects
