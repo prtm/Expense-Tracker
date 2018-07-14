@@ -8,5 +8,5 @@ urlpatterns = [
     path('', include(('accounts.urls','accounts'),namespace='accounts')),
     path('', include(('expense_manager.urls', 'expense_manager'),
                      namespace='expense_manager')),
-    re_path(r'^$', lambda r: HttpResponseRedirect(reverse('login'))),
+    re_path(r'^$', lambda r: HttpResponseRedirect(reverse('accounts:login'))),
 ]
