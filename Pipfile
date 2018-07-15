@@ -12,6 +12,7 @@ django-tastypie = "*"
 [dev-packages]
 pylint = "*"
 "autopep8" = "*"
+django-seed = "*"
 
 [requires]
 python_version = "3.6"
