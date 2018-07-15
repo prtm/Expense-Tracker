@@ -21,10 +21,4 @@
         </span>
     </div>
 </div>
-{% endfor %}
-
-<div class="row mt-15">
-    <div class="col-sm-2 offset-5">
-        <button type="button" class="btn btn-default" hidden>Show More</button>
-    </div>
-</div>
+{% endfor %} {% if footer %} {% include 'expense_manager/dashboard/pagination.html' %} {% endif %}

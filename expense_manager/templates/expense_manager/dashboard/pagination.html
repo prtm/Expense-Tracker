@@ -1,0 +1,13 @@
+<div class="row w-100 justify-content-center d-flex mt-15 mb-15">
+    <span class="step-links" style="display: inline-block;">
+        {% if has_previous %}
+        <a href="?offset={{ offset }}">Previous</a>
+        {% endif %}
+        <span class="current" style="margin-right: 10px;margin-left: 10px;">
+            Page {{ page_number }} of {{ total_page_number }}
+        </span>
+        {% if has_next %}
+        <a href="?offset={{ offset|add:'20' }}">Next</a>
+        {% endif %}
+    </span>
+</div>

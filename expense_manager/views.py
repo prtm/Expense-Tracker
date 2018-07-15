@@ -1,5 +1,6 @@
 # stdlib
 import json
+import math
 # import copy
 from datetime import date
 
@@ -59,6 +60,7 @@ def dashboard(request):
         param_has_image = request.GET.get('photo__ne')
         param_created = request.GET.get('created__range')
         param_date = request.GET.get('date')
+        param_offset = request.GET.get('offset')
         if param_name or param_name == '' or param_price or param_price == '':
             show_expense_tab = True
 
@@ -77,9 +79,12 @@ def dashboard(request):
             if param_date:
                 datefilter = param_date
 
+        if param_offset:
+            show_expense_tab = True
+
     # report summary
     total_expense = Expense.manager.total_expense(
-        request.user, date.today().month)['total_expense']
+        request.user, date.today().month,date.today().year)['total_expense']
     budget = Budget.objects.filter(
         user=request.user, month=date.today().month)
     if budget:
@@ -89,20 +94,41 @@ def dashboard(request):
     remaining = total_expense - budget
 
     # all expenses including filter
-    all_expenses = json.loads(resource.render_list(request)).get('objects')
+    all_expenses = json.loads(resource.render_list(request))
     # all_expenses = Expense.manager.all_expenses(request.user)
 
     # top 10 including filter
-    top_10 = Expense.manager.top_10_month_expenses(request.user)
+    top_10 = Expense.manager.top_10_month_expenses(
+        request.user, date.today().month, date.today().year)
+
+    # pagination footer details
+    offset = all_expenses['meta']['offset']
+
+    total_page_number = math.ceil(
+        all_expenses['meta']['total_count']/all_expenses['meta']['limit'])
+    page_number = math.ceil(
+        all_expenses['meta']['offset']/all_expenses['meta']['limit'])+1
+
+    if page_number > total_page_number:
+        page_number = total_page_number
+
+    has_previous = (page_number != 1)
+    has_next = (page_number != total_page_number)
 
     return render(request, 'expense_manager/dashboard/dashboard.html', {'form': form, 'top_10': top_10,
-                                                                        'all_expenses': all_expenses,
+                                                                        'all_expenses': all_expenses.get('objects'),
                                                                         'total_expense': total_expense,
                                                                         'budget': budget,
+                                                                        'month' : date.today().strftime("%B"),
                                                                         'remaining': budget-total_expense,
                                                                         'show_expense_tab': show_expense_tab,
                                                                         'imagefilter': imagefilter,
-                                                                        "datefilter": datefilter})
+                                                                        "datefilter": datefilter,
+                                                                        "offset": offset,
+                                                                        "has_previous": has_previous,
+                                                                        "has_next": has_next,
+                                                                        "total_page_number": total_page_number,
+                                                                        "page_number": page_number})
 
 # upload image
 
