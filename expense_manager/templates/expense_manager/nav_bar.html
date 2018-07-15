@@ -6,7 +6,23 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="form-inline ml-auto my-2 my-lg-0" method="GET" action="" id="searchForm">
+        <div class="navbar-nav ml-auto mx-5 nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dateFilter" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Date Filter
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <h6 class="dropdown-item" id="dateNoFilter">Any Date</h6>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-item" id="today">Today</h6>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-item" id="thisWeek">This Week</h6>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-item" id="previousWeek">Previous Week</h6>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-item" id="thisMonth">This Month</h6>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0" method="GET" action="" id="searchForm">
             <input class="form-control mr-sm-2" type="search" id="searchInput" placeholder="Name or Price" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
