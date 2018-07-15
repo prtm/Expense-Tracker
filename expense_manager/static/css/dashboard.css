@@ -107,3 +107,12 @@ ml-5{
 .dropdown-item:hover {
     cursor: pointer;
 }
+.sortName{}
+.sortPrice{}
+
+.sortName:hover{
+    cursor: pointer;
+}
+.sortPrice:hover{
+    cursor: pointer;
+}

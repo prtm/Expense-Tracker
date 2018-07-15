@@ -71,7 +71,7 @@ class ExpenseResource(ModelResource):
             'photo': ALL,
             'created': ['exact', 'range', 'gte']
         }
-        ordering = ['price']
+        ordering = ['name','price']
         excludes = ('id', 'modified')
 
     # filter obj for logged in user

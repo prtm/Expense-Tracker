@@ -62,6 +62,7 @@ def dashboard(request):
         param_created = request.GET.get('created__range')
         param_date = request.GET.get('date')
         param_offset = request.GET.get('offset')
+        param_orderby = request.GET.get('order_by')
         if param_name or param_name == '' or param_price or param_price == '':
             show_expense_tab = True
 
@@ -81,6 +82,9 @@ def dashboard(request):
                 datefilter = param_date
 
         if param_offset:
+            show_expense_tab = True
+        
+        if param_orderby:
             show_expense_tab = True
 
     # report summary

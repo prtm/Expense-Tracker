@@ -146,10 +146,72 @@ function dateBtnClickListener() {
     });
 }
 
+// insert param to sort by name or price
+function insertSortbyParam(key, posValue, negValue) {
+    key = encodeURI(key);
+    posValue = encodeURI(posValue);
+    negValue = encodeURI(negValue);
 
-// on document ready auto code execute
+    var kvp = document.location.search.substr(1).split('&');
+
+    var i = kvp.length;
+    var x;
+    var alreadyAdded = false;
+    while (i--) {
+        x = kvp[i].split('=');
+
+        if (x[0] == 'order_by' || x[0] == 'limit' || x[0] == 'offset' || x[0] == '') {
+            if (x[0] == 'order_by') {
+                if (x[1] == posValue) {
+                    x[1] = negValue;
+                    kvp[i] = x.join('=');
+                    alreadyAdded = true;
+                } else if (x[1] == negValue) {
+                    x[1] = posValue;
+                    kvp[i] = x.join('=');
+                    alreadyAdded = true;
+                } else {
+                    kvp.splice(i, 1);
+                }
+            } else {
+                kvp.splice(i, 1);
+            }
+        }
+    }
+
+    // not found in current url then add key value
+    if (key != '' && !alreadyAdded) {
+        kvp[kvp.length] = [key, posValue].join('=');
+    }
+
+    //this will reload the page, it's likely better to store this until finished
+    document.location.search = kvp.join('&');
+}
+
+// sort by name
+function sortbyNameBtnClickListener() {
+    $('.sortName').on('click', function (e) {
+        console.log('sort by name clicked');
+        
+        insertSortbyParam('order_by', 'name', '-name')
+    });
+}
+
+
+// sort by price
+function sortbyPriceBtnClickListener() {
+    $('.sortPrice').on('click', function (e) {
+        console.log('sort by price clicked');
+        insertSortbyParam('order_by', 'price', '-price')
+    });
+}
+
+
+// on document ready set click listeners
 $(function () {
     imageBtnClickListener()
     searchBtnClickListener()
     dateBtnClickListener()
+    sortbyNameBtnClickListener()
+    sortbyPriceBtnClickListener()
 });
