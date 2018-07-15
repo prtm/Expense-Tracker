@@ -48,7 +48,7 @@ class ExpenseAdmin(admin.ModelAdmin):
 
 @admin.register(Budget)
 class BudgetAdmin(admin.ModelAdmin):
-    list_display = ('user', 'budget', 'month', 'created', 'modified')
+    list_display = ('user', 'budget', 'month', 'year', 'created', 'modified')
     list_filter = ('created', 'modified')
-    search_fields = ('user__username', 'budget', 'month')
+    search_fields = ('user__username', 'budget', 'month','year')
     ordering = ('-modified', '-created')

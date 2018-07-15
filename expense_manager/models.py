@@ -21,20 +21,22 @@ class Budget(TimeStampedModel):
     user = models.ForeignKey(User, related_name='budget',
                              on_delete=models.CASCADE)
     budget = models.DecimalField(max_digits=8, decimal_places=2)
-    month = models.PositiveSmallIntegerField(validators=[
+    month = models.PositiveSmallIntegerField(default=date.today().month, validators=[
         MaxValueValidator(12), MinValueValidator(1)])
+    year = models.PositiveSmallIntegerField(default=date.today().year, validators=[
+        MaxValueValidator(2035), MinValueValidator(2015)])
 
     def save(self, *args, **kwargs):
-        if self.month >= 1 and self.month <= 12:
-            super(Budget, self).save(*args, **kwargs)
-        elif self.month is None:
-            self.month = date.today().month
+        if self.month >= 1 and self.month <= 12 and self.year >= 2015 and self.year <= 2035:
             super(Budget, self).save(*args, **kwargs)
         else:
-            raise ValidationError('Incorrect Month')
+            raise ValidationError('Incorrect Month or Year')
 
     class Meta:
-        unique_together = ('user', 'month')
+        unique_together = ('user', 'month', 'year')
+
+    def __str__(self):
+        return str(self.month)+"-"+str(self.year)
 
 
 class UserExpenseQuerySet(models.QuerySet):
