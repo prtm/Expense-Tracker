@@ -41,11 +41,11 @@ class UserExpenseQuerySet(models.QuerySet):
     def all_expenses(self, user):
         return self.filter(user=user).order_by('-created')
 
-    def total_expense(self, user, month):
-        return self.filter(user=user, created__month=month).aggregate(total_expense=models.Sum('price'))
+    def total_expense(self, user, month, year):
+        return self.filter(user=user, created__month=month, created__year=year).aggregate(total_expense=models.Sum('price'))
 
-    def top_10_month_expenses(self, user):
-        return self.filter(user=user, created__month=date.today().month).order_by('-price')[:10]
+    def top_10_month_expenses(self, user, month, year):
+        return self.filter(user=user, created__month=month, created__year=year).order_by('-price')[:10]
 
 
 class UserExpensesManager(models.Manager):
@@ -55,11 +55,11 @@ class UserExpensesManager(models.Manager):
     def all_expenses(self, user):
         return self.get_queryset().all_expenses(user)
 
-    def total_expense(self, user, month):
-        return self.get_queryset().total_expense(user, month)
+    def total_expense(self, user, month, year):
+        return self.get_queryset().total_expense(user, month, year)
 
-    def top_10_month_expenses(self, user):
-        return self.get_queryset().top_10_month_expenses(user)
+    def top_10_month_expenses(self, user, month, year):
+        return self.get_queryset().top_10_month_expenses(user, month, year)
 
 
 class Expense(TimeStampedModel):
