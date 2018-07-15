@@ -44,7 +44,7 @@ function insertImageParam(key, value) {
 }
 
 // insert date param
-function insertDateParam(key, value) {
+function insertDateParam(key, value, date_value) {
     key = encodeURI(key);
     value = encodeURI(value);
 
@@ -56,14 +56,15 @@ function insertDateParam(key, value) {
     while (i--) {
         x = kvp[i].split('=');
 
-        if (x[0] == 'created' || x[0] == 'created__range' || x[0] == '') {
+        if (x[0] == 'created' || x[0] == 'created__range' || x[0] == 'date' || x[0] == '') {
             kvp.splice(i, 1)
         }
     }
 
     // not found in current url then add key value
     if (key != '') {
-        kvp[kvp.length] = [key, value].join('=')
+        kvp[kvp.length] = [key, value].join('=');
+        kvp[kvp.length] = ['date', date_value].join('=');
     }
 
     //this will reload the page, it's likely better to store this until finished
@@ -97,7 +98,7 @@ function dateBtnClickListener() {
 
     $('#dateNoFilter').on('click', function (e) {
         $('#dateFilter').text('Date Filter')
-        insertDateParam('', '')
+        insertDateParam('', '','')
     });
     $('#today').on('click', function (e) {
         $('#dateFilter').text('Today')
@@ -109,7 +110,7 @@ function dateBtnClickListener() {
         var date_formatted = yyyy + "-" + mm + "-" + dd;
         date_formatted = date_formatted + "," + next_day.getFullYear() + "-" + ("0" + (next_day.getMonth() + 1)).slice(-2) + "-" + ('0' + next_day.getDate()).slice(-2);
 
-        insertDateParam('created__range', date_formatted)
+        insertDateParam('created__range', date_formatted,'today')
 
     });
     $('#thisWeek').on('click', function (e) {
@@ -125,7 +126,7 @@ function dateBtnClickListener() {
         var date_formatted = first.getFullYear() + "-" + ("0" + (first.getMonth() + 1)).slice(-2) + "-" + ('0' + first.getDate()).slice(-2);
         date_formatted = date_formatted + "," + last.getFullYear() + "-" + ("0" + (last.getMonth() + 1)).slice(-2) + "-" + ('0' + last.getDate()).slice(-2);
 
-        insertDateParam('created__range', date_formatted)
+        insertDateParam('created__range', date_formatted,'this-week')
     });
     $('#previousWeek').on('click', function (e) {
         $('#dateFilter').text('Previous Week')
@@ -136,7 +137,7 @@ function dateBtnClickListener() {
         var last = new Date(curr.setDate(last))
         var date_formatted = first.getFullYear() + "-" + ("0" + (first.getMonth() + 1)).slice(-2) + "-" + ('0' + first.getDate()).slice(-2);
         date_formatted = date_formatted + "," + last.getFullYear() + "-" + ("0" + (last.getMonth() + 1)).slice(-2) + "-" + ('0' + last.getDate()).slice(-2);
-        insertDateParam('created__range', date_formatted)
+        insertDateParam('created__range', date_formatted,'previous-week')
     });
     $('#thisMonth').on('click', function (e) {
         $('#dateFilter').text('This Month')
@@ -144,7 +145,7 @@ function dateBtnClickListener() {
         var last = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         var date_formatted = first.getFullYear() + "-" + ("0" + (first.getMonth() + 1)).slice(-2) + "-" + ('0' + first.getDate()).slice(-2);
         date_formatted = date_formatted + "," + last.getFullYear() + "-" + ("0" + (last.getMonth() + 1)).slice(-2) + "-" + ('0' + last.getDate()).slice(-2);
-        insertDateParam('created__range', date_formatted)
+        insertDateParam('created__range', date_formatted,'this-month')
     });
 }
 

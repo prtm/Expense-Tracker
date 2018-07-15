@@ -59,6 +59,20 @@
             $('#imageFilter').text('Image Filter')
         }
         
+        // change date filter text if date filter applied on refresh
+        var datefilter = "{{ datefilter }}"
+        if( datefilter == 'today' ){
+            $('#dateFilter').text('Today')
+
+        }else if( datefilter  == 'this-week'){
+            $('#dateFilter').text('This Week')
+        }else if( datefilter  == 'previous-week'){
+            $('#dateFilter').text('Previous Week')
+        }else if( datefilter  == 'this-month'){
+            $('#dateFilter').text('This Month')
+        }else{
+            $('#dateFilter').text('Date Filter')
+        }
 
         // show expense tab if parameter found
         var show_expense_tab = {{ show_expense_tab|yesno:"true,false" }};
@@ -69,6 +83,8 @@
             $('#v-pills-dashboard').addClass('show active')
             $('#v-pills-dashboard-tab').addClass('active')
         }
+
+        
     });
     
 </script>

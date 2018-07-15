@@ -25,6 +25,7 @@ resource = ExpenseResource()
 def dashboard(request):
     show_expense_tab = None
     imagefilter = 1
+    datefilter = 1
 
     # add and update expense logic
     if request.method == "POST":
@@ -56,6 +57,8 @@ def dashboard(request):
         param_price = request.GET.get('price')
         param_no_image = request.GET.get('photo')
         param_has_image = request.GET.get('photo__ne')
+        param_created = request.GET.get('created__range')
+        param_date = request.GET.get('date')
         if param_name or param_name == '' or param_price or param_price == '':
             show_expense_tab = True
 
@@ -68,6 +71,11 @@ def dashboard(request):
         if param_has_image or param_has_image == '':
             show_expense_tab = True
             imagefilter = 3
+
+        if param_created:
+            show_expense_tab = True
+            if param_date:
+                datefilter = param_date
 
     # report summary
     total_expense = Expense.manager.total_expense(
@@ -93,7 +101,8 @@ def dashboard(request):
                                                                         'budget': budget,
                                                                         'remaining': budget-total_expense,
                                                                         'show_expense_tab': show_expense_tab,
-                                                                        'imagefilter': imagefilter})
+                                                                        'imagefilter': imagefilter,
+                                                                        "datefilter": datefilter})
 
 # upload image
 
