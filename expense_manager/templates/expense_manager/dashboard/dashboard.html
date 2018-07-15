@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-3 drawer shadow">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard"
+                <a class="nav-link" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard"
                     aria-selected="true">Dashboard</a>
                 <a class="nav-link" id="v-pills-all-expenses-tab" data-toggle="pill" href="#v-pills-all-expenses" role="tab" aria-controls="v-pills-all-expenses"
                     aria-selected="false">All expenses</a>
@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-9 shadow" style="background-color: white;">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active p-15" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                <div class="tab-pane fade p-15" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                     {% include 'expense_manager/dashboard/dashboard_tab_content.html' %}
                 </div>
                 <div class="tab-pane fade p-15" id="v-pills-all-expenses" role="tabpanel" aria-labelledby="v-pills-all-expenses-tab">
@@ -50,9 +50,24 @@
 
 <script>
     $(function(e){
+        // change image filter text if image filter applied on refresh
+        if( {{ imagefilter }} == 3){
+            $('#imageFilter').text('Has Image')
+        }else if( {{ imagefilter }} == 2){
+            $('#imageFilter').text('No Image')
+        }else{
+            $('#imageFilter').text('Image Filter')
+        }
+        
+
+        // show expense tab if parameter found
         var show_expense_tab = {{ show_expense_tab|yesno:"true,false" }};
         if (show_expense_tab){
-            $('#v-pills-all-expenses-tab').click()
+            $('#v-pills-all-expenses').addClass('show active')
+            $('#v-pills-all-expenses-tab').addClass('active')
+        }else{
+            $('#v-pills-dashboard').addClass('show active')
+            $('#v-pills-dashboard-tab').addClass('active')
         }
     });
     

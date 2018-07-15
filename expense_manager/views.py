@@ -23,14 +23,21 @@ resource = ExpenseResource()
 
 @login_required
 def dashboard(request):
-    # add expense logic
     show_expense_tab = None
+    imagefilter = 1
+
+    # add and update expense logic
     if request.method == "POST":
         form = ExpenseForm(request.POST, request.FILES or None)
+
+        # validate form
         if form.is_valid():
             expense = form.save(commit=False)
             expense.user = request.user
             photo = form.cleaned_data['photo']
+
+            # if photo found then check extenstion for image file
+            # in future check for signature using python-magic library
             if photo:
                 file_type = expense.photo.url.split('.')[-1]
                 file_type = file_type.lower()
@@ -44,11 +51,23 @@ def dashboard(request):
     else:
         form = ExpenseForm()
 
-    if request.GET.get('name',True) or request.GET.get('price',True) \
-            or request.GET.get('photo',True) or request.GET.get('photo__ne',True):
-        show_expense_tab = True
-        print(show_expense_tab)
+        # show expense tab if parameter found
+        param_name = request.GET.get('name')
+        param_price = request.GET.get('price')
+        param_no_image = request.GET.get('photo')
+        param_has_image = request.GET.get('photo__ne')
+        if param_name or param_name == '' or param_price or param_price == '':
+            show_expense_tab = True
 
+        # show expense tab if parameter found
+        # change image filter text if image filter applied on page refresh
+        if param_no_image or param_no_image == '':
+            show_expense_tab = True
+            imagefilter = 2
+
+        if param_has_image or param_has_image == '':
+            show_expense_tab = True
+            imagefilter = 3
 
     # report summary
     total_expense = Expense.manager.total_expense(
@@ -73,7 +92,10 @@ def dashboard(request):
                                                                         'total_expense': total_expense,
                                                                         'budget': budget,
                                                                         'remaining': budget-total_expense,
-                                                                        'show_expense_tab': show_expense_tab})
+                                                                        'show_expense_tab': show_expense_tab,
+                                                                        'imagefilter': imagefilter})
+
+# upload image
 
 
 @login_required
