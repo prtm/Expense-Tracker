@@ -41,26 +41,30 @@ class ExpenseResource(ModelResource):
             'created': ['exact', 'range', 'gte']
         }
         ordering = ['price']
-        excludes = ('id', 'created', 'modified')
+        excludes = ('id', 'modified')
 
+    # filter obj for logged in user
     def get_object_list(self, request):
         return super(ExpenseResource, self).get_object_list(request).filter(user=request.user)
 
+    # store obj based on logged in
     def hydrate(self, bundle):
         bundle.obj.user = bundle.request.user
         return bundle
+    # get detail obj direct
 
     def render_detail(self, request, pk):
         resp = self.get_detail(request, pk=pk)
         return resp.content
+    # get list direct
 
     def render_list(self, request):
         resp = self.get_list(request)
         return resp.content
 
-
     # https://github.com/django-tastypie/django-tastypie/issues/524
     # has image --> check if image blank --> ne filter required
+
     def build_filters(self, filters=None):
         """
         First, separate out normal filters and the __ne operations
