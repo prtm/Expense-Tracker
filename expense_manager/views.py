@@ -60,7 +60,7 @@ def dashboard(request):
         param_name = request.GET.get('name')
         param_price = request.GET.get('price')
         param_no_image = request.GET.get('photo')
-        param_has_image = request.GET.get('photo__ne')
+        param_has_image = request.GET.get('photos')
         param_created = request.GET.get('created__range')
         param_date = request.GET.get('date')
         param_offset = request.GET.get('offset')
@@ -82,17 +82,17 @@ def dashboard(request):
             show_expense_tab = True
             imagefilter = 2
             if previous_page:
-                previous_page = "&photo="+param_no_image
+                previous_page = "&photo="
             else:
-                previous_page = "photo="+param_no_image
+                previous_page = "photo="
 
         if param_has_image or param_has_image == '':
             show_expense_tab = True
             imagefilter = 3
             if previous_page:
-                previous_page = "&photo__ne="+param_has_image
+                previous_page = "&photos=-1"
             else:
-                previous_page = "photo__ne="+param_has_image
+                previous_page = "photos=-1"
 
         if param_created:
             show_expense_tab = True

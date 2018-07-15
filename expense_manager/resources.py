@@ -28,16 +28,6 @@ from tastypie import fields
 #         return allowed
 
 class BudgetResource(ModelResource):
-    class Meta:
-        queryset = Budget.objects.all()
-        resource_name = 'budget'
-        authorization = DjangoAuthorization()
-        filtering = {
-            'budget': ALL,
-            'month': ALL,
-        }
-        ordering = ['month']
-        excludes = ('id', 'created' 'modified')
 
     # filter obj for logged in user
     def get_object_list(self, request):
@@ -58,24 +48,25 @@ class BudgetResource(ModelResource):
         resp = self.get_list(request)
         return resp.content
 
+    class Meta:
+        queryset = Budget.objects.all()
+        resource_name = 'budget'
+        authorization = DjangoAuthorization()
+        filtering = {
+            'budget': ALL,
+            'month': ALL,
+        }
+        ordering = ['month']
+        excludes = ('created', 'modified',)
+
 
 class ExpenseResource(ModelResource):
     # photo = fields.FileField(attribute="photo", null=True, blank=True)
-    class Meta:
-        queryset = Expense.objects.all()
-        resource_name = 'expense'
-        authorization = DjangoAuthorization()
-        filtering = {
-            'name': ALL,
-            'price': ALL,
-            'photo': ALL,
-            'created': ['exact', 'range', 'gte']
-        }
-        ordering = ['name','price']
-        excludes = ('id', 'modified')
 
     # filter obj for logged in user
     def get_object_list(self, request):
+        if request.GET.get('photos') == "-1":
+            return super(ExpenseResource, self).get_object_list(request).filter(user=request.user).exclude(photo__exact='')
         return super(ExpenseResource, self).get_object_list(request).filter(user=request.user)
 
     # store obj based on logged in
@@ -92,44 +83,18 @@ class ExpenseResource(ModelResource):
     def render_list(self, request):
         resp = self.get_list(request)
         return resp.content
+    
+    
 
-    # https://github.com/django-tastypie/django-tastypie/issues/524
-    # has image --> check if image blank --> ne filter required
-
-    def build_filters(self, filters=None):
-        """
-        First, separate out normal filters and the __ne operations
-        """
-        if not filters:
-            return filters
-
-        applicable_filters = {}
-
-        # Normal filtering
-        filter_params = dict([(x, filters[x]) for x in filter(
-            lambda x: not x.endswith('__ne'), filters)])
-        applicable_filters['filter'] = super(
-            type(self), self).build_filters(filter_params)
-
-        # Exclude filtering
-        exclude_params = dict([(x[:-4], filters[x])
-                               for x in filter(lambda x: x.endswith('__ne'), filters)])
-        applicable_filters['exclude'] = super(
-            type(self), self).build_filters(exclude_params)
-
-        return applicable_filters
-
-    def apply_filters(self, request, applicable_filters):
-        """
-        Distinguish between normal filters and exclude filters
-        """
-        objects = self.get_object_list(request)
-
-        f = applicable_filters.get('filter')
-        if f:
-            objects = objects.filter(**f)
-        e = applicable_filters.get('exclude')
-        if e:
-            for exclusion_filter, value in e.items():
-                objects = objects.exclude(**{exclusion_filter: value})
-        return objects
+    class Meta:
+        queryset = Expense.objects.all()
+        resource_name = 'expense'
+        authorization = DjangoAuthorization()
+        filtering = {
+            'name': ALL,
+            'price': ALL,
+            'photo': ALL,
+            'created': ['exact', 'range', 'gte']
+        }
+        ordering = ['name', 'price']
+        excludes = ('modified',)

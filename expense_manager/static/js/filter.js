@@ -28,7 +28,7 @@ function insertImageParam(key, value) {
     while (i--) {
         x = kvp[i].split('=');
 
-        if (x[0] == 'photo__ne' || x[0] == 'photo' || x[0] == 'limit' || x[0] == 'offset' || x[0] == '') {
+        if (x[0] == 'photos' || x[0] == 'photo' || x[0] == 'limit' || x[0] == 'offset' || x[0] == '') {
             kvp.splice(i, 1)
         }
     }
@@ -79,7 +79,7 @@ function imageBtnClickListener() {
     });
     $('#hasImage').on('click', function (e) {
         $('#imageFilter').text('Has Image')
-        insertImageParam('photo__ne', '')
+        insertImageParam('photos', '-1')
     });
     $('#noImage').on('click', function (e) {
         $('#imageFilter').text('No Image')
