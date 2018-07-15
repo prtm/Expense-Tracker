@@ -15,8 +15,6 @@
                     aria-selected="false">All expenses</a>
                 <a class="nav-link" id="v-pills-report-tab" data-toggle="pill" href="#v-pills-report" role="tab" aria-controls="v-pills-report"
                     aria-selected="false">Report</a>
-                <a class="nav-link" id="v-pills-activies-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-activies"
-                    aria-selected="false">Activities</a>
                 <a class="nav-link" id="v-pills-analytics-tab" data-toggle="pill" href="#v-pills-analytics" role="tab" aria-controls="v-pills-analytics"
                     aria-selected="false">Analytics</a>
                 <a class="nav-link" id="v-pills-contact-tab" data-toggle="pill" href="#v-pills-contact" role="tab" aria-controls="v-pills-contact"
@@ -34,9 +32,6 @@
                 <div class="tab-pane fade p-15" id="v-pills-report" role="tabpanel" aria-labelledby="v-pills-report-tab">
                     {% include 'expense_manager/dashboard/report_tab_content.html' %}
                 </div>
-                <div class="tab-pane fade p-15" id="v-pills-activies" role="tabpanel" aria-labelledby="v-pills-activies-tab">
-                    {% include 'expense_manager/dashboard/activities_tab_content.html' %}
-                </div>
                 <div class="tab-pane fade p-15" id="v-pills-analytics" role="tabpanel" aria-labelledby="v-pills-analytics-tab">
                         {% include 'expense_manager/dashboard/analytics_tab_content.html' %}
                 </div>
@@ -53,7 +48,15 @@
     {% include 'expense_manager/modal/delete.html' %}
 </div>
 
-
+<script>
+    $(function(e){
+        var show_expense_tab = {{ show_expense_tab|yesno:"true,false" }};
+        if (show_expense_tab){
+            $('#v-pills-all-expenses-tab').click()
+        }
+    });
+    
+</script>
 
 
 {% endblock body %}

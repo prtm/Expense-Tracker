@@ -18,12 +18,13 @@ from .models import Expense, Budget
 from .resources import ExpenseResource
 
 
-
 resource = ExpenseResource()
+
 
 @login_required
 def dashboard(request):
     # add expense logic
+    show_expense_tab = None
     if request.method == "POST":
         form = ExpenseForm(request.POST, request.FILES or None)
         if form.is_valid():
@@ -42,7 +43,11 @@ def dashboard(request):
                 expense.save()
     else:
         form = ExpenseForm()
-    
+
+    if request.GET.get('name',True) or request.GET.get('price',True) \
+            or request.GET.get('photo',True) or request.GET.get('photo__ne',True):
+        show_expense_tab = True
+        print(show_expense_tab)
 
 
     # report summary
@@ -56,20 +61,19 @@ def dashboard(request):
         budget = 0
     remaining = total_expense - budget
 
-
-
-
     # all expenses including filter
     all_expenses = json.loads(resource.render_list(request)).get('objects')
     # all_expenses = Expense.manager.all_expenses(request.user)
 
     # top 10 including filter
     top_10 = Expense.manager.top_10_month_expenses(request.user)
+
     return render(request, 'expense_manager/dashboard/dashboard.html', {'form': form, 'top_10': top_10,
                                                                         'all_expenses': all_expenses,
                                                                         'total_expense': total_expense,
                                                                         'budget': budget,
-                                                                        'remaining': budget-total_expense})
+                                                                        'remaining': budget-total_expense,
+                                                                        'show_expense_tab': show_expense_tab})
 
 
 @login_required

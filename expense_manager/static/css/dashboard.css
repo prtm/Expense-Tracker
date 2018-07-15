@@ -103,3 +103,7 @@ ml-5{
 .list-ritem .col-name:hover {
     text-decoration: underline;
 }
+
+.dropdown-item:hover {
+    cursor: pointer;
+}
