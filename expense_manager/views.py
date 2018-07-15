@@ -25,10 +25,11 @@ resource = ExpenseResource()
 @login_required
 def dashboard(request):
     show_expense_tab = None
+    budget_id = -1
     imagefilter = 1
     datefilter = 1
 
-    # add and update expense logic
+    # add and updNoneate expense logic
     if request.method == "POST":
         form = ExpenseForm(request.POST, request.FILES or None)
 
@@ -88,7 +89,8 @@ def dashboard(request):
     budget = Budget.objects.filter(
         user=request.user, month=date.today().month)
     if budget:
-        budget = budget[0].get('budget')
+        budget_id = budget[0].pk
+        budget = budget[0].budget
     else:
         budget = 0
     remaining = total_expense - budget
@@ -119,6 +121,7 @@ def dashboard(request):
                                                                         'all_expenses': all_expenses.get('objects'),
                                                                         'total_expense': total_expense,
                                                                         'budget': budget,
+                                                                        'budget_id': budget_id,
                                                                         'month' : date.today().strftime("%B"),
                                                                         'remaining': budget-total_expense,
                                                                         'show_expense_tab': show_expense_tab,

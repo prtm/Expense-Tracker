@@ -139,11 +139,7 @@ function editExpense(uid, data) {
         },
         complete: function (response) {
             // $('.upload-progress').hide();
-            $(':input', '#add-form')
-                .not(':button, :submit, :reset, :hidden')
-                .val('')
-                .prop('checked', false)
-                .prop('selected', false);
+            clearformAddEdit()
             console.log("complete", response.statusText)
             location.reload()
             // $('#addModal').modal('toggle');
@@ -201,6 +197,76 @@ function trashIconListener() {
     });
 }
 
+function budgetBtnListener() {
+    // set budget if already filled
+    $('#budgetModal').on('shown.bs.modal', function (e) {
+        var budget = $('#budgetButton').data('budget')
+        $('#budget').val(budget)
+      })
+      
+
+
+    // budget save btn click listener
+    $('#budgetButton').on('click', function (e) {
+        var budgetInput = $('#budget').val()
+        var uid = $(this).data('uid')
+        // budget not set for this month yet
+        if(uid == -1){
+            $.ajax({
+                url: '/api/v1/budget/',
+                type: 'POST',
+                data: JSON.stringify({
+                    'budget': budgetInput
+                }),
+                async: true,
+                cache: false,
+                contentType: 'application/json',
+                beforeSend: function () {
+                    console.log('Uploading...');
+                    // $('.upload-progress').show();
+                },
+                complete: function (response) {
+                    // $('.upload-progress').hide();
+                    $('#budget').val('')
+                    console.log("complete", response.statusText)
+                    location.reload()
+                },
+                error:function(response){
+                    console.log(response);
+                    
+                }
+            });
+
+        }else{
+            // update budget for this month
+            $.ajax({
+                url: '/api/v1/budget/' + uid + "/",
+                type: 'PATCH',
+                data: JSON.stringify({
+                    'budget': budgetInput
+                }),
+                async: true,
+                cache: false,
+                contentType: 'application/json',
+                beforeSend: function () {
+                    console.log('Uploading...');
+                    // $('.upload-progress').show();
+                },
+                complete: function (response) {
+                    // $('.upload-progress').hide();
+                    $('#budget').val('')
+                    console.log("complete", response.statusText)
+                    location.reload()
+                },
+                error:function(response){
+                    console.log(response);
+                    
+                }
+            });
+        }
+        
+    });
+}
 
 
 // add edit modal -> on close -> clear form
@@ -212,6 +278,7 @@ function closeAddEditModalBtnListener() {
 }
 
 
+
 // on document ready set listeners
 $(function () {
     addContainerListener()
@@ -219,5 +286,6 @@ $(function () {
     addEditExpenseBtnListener()
     trashIconListener()
     deleteExpenseBtnListener()
+    budgetBtnListener()
     closeAddEditModalBtnListener()
 });
