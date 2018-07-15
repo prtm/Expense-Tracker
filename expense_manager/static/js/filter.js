@@ -22,7 +22,6 @@ function insertImageParam(key, value) {
     value = encodeURI(value);
 
     var kvp = document.location.search.substr(1).split('&');
-    console.log(kvp);
 
     var i = kvp.length;
     var x;
@@ -49,7 +48,6 @@ function insertDateParam(key, value, date_value) {
     value = encodeURI(value);
 
     var kvp = document.location.search.substr(1).split('&');
-    console.log(kvp);
 
     var i = kvp.length;
     var x;
@@ -121,7 +119,6 @@ function dateBtnClickListener() {
         var curr = new Date();
         var first = new Date(curr.setDate(first));
         var last = new Date(curr.setDate(last))
-        console.log(first, last);
 
         var date_formatted = first.getFullYear() + "-" + ("0" + (first.getMonth() + 1)).slice(-2) + "-" + ('0' + first.getDate()).slice(-2);
         date_formatted = date_formatted + "," + last.getFullYear() + "-" + ("0" + (last.getMonth() + 1)).slice(-2) + "-" + ('0' + last.getDate()).slice(-2);
