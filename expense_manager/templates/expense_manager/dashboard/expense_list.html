@@ -8,7 +8,7 @@
 
 {% for expense in expenses %} 
 {% if expense.photo %}
-<div class="row list-ritem" data-url="{{ expense.photo }}">
+<div class="row list-ritem image-open" data-url="{{ expense.photo }}" data-toggle="modal" data-target="#imageModal">
     {% else %}
     <div class="row list-ritem">
         {% endif %}
