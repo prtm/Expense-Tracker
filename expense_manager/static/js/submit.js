@@ -212,6 +212,7 @@ function trashIconListener() {
         $('#delete-name').text("Name: " + name)
         $('#delete-price').text("Price: " + price)
         $('#delete-expense').data('uid', $(this).data('uid'))
+        $('#deleteModal').modal('show')
         e.stopPropagation(); //stop parent click from triggered
     });
 }
