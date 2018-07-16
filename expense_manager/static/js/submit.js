@@ -14,6 +14,20 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+function showCompleteModal() {
+    $('#completeModal').modal('show')
+    $('#tickImage').fadeIn('slow')
+    setTimeout(
+        function () {
+            $('#completeModal').modal('hide')
+            location.reload()
+        }, 1000);
+}
+
+
+
+
 // clear add edit form logic
 function clearformAddEdit() {
     $(':input', '#add-edit-form')
@@ -59,7 +73,8 @@ function addExpense(data) {
             // $('.upload-progress').hide();
             clearformAddEdit()
             console.log("complete", response.statusText)
-            location.reload()
+            $('#addEditModal').modal('hide');
+            showCompleteModal()
             // $('#addModal').modal('toggle');
         }
     });
@@ -141,7 +156,8 @@ function editExpense(uid, data) {
             // $('.upload-progress').hide();
             clearformAddEdit()
             console.log("complete", response.statusText)
-            location.reload()
+            $('#addEditModal').modal('hide');
+            showCompleteModal()
             // $('#addModal').modal('toggle');
         }
     });
@@ -174,7 +190,8 @@ function deleteExpense(uid) {
         complete: function (response) {
             // $('.upload-progress').hide();
             console.log("complete", response.statusText)
-            location.reload()
+            $('#deleteModal').modal('hide');
+            showCompleteModal()
         }
     });
 }
@@ -231,7 +248,8 @@ function budgetBtnListener() {
                     // $('.upload-progress').hide();
                     $('#budget').val('')
                     console.log("complete", response.statusText)
-                    location.reload()
+                    $('#budgetModal').modal('hide');
+                    showCompleteModal()
                 },
                 error: function (response) {
                     console.log(response);
@@ -258,7 +276,8 @@ function budgetBtnListener() {
                     // $('.upload-progress').hide();
                     $('#budget').val('')
                     console.log("complete", response.statusText)
-                    location.reload()
+                    $('#budgetModal').modal('hide');
+                    showCompleteModal()
                 },
                 error: function (response) {
                     console.log(response);
@@ -305,7 +324,8 @@ function imageModalBtnClickListener() {
                 // $('.upload-progress').hide();
                 clearformAddEdit()
                 console.log("complete", response.statusText)
-                location.reload()
+                $('#imageModal').modal('hide');
+                showCompleteModal()
             }
         });
     });
