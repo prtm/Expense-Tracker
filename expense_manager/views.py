@@ -169,7 +169,7 @@ def uploadImage(request):
     if request.method == 'POST' and request.FILES.get('photo'):
         photo = request.FILES['photo']
 
-        file_type = expense.photo.url.split('.')[-1]
+        file_type = photo.url.split('.')[-1]
         file_type = file_type.lower()
         # [ Future changes ] python-magic library required to check correct mime type
         if file_type not in ['png', 'jpg']:
