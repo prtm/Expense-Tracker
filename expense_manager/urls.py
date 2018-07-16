@@ -15,6 +15,6 @@ v1_api.register(BudgetResource())
 urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     # path('api/v1/expenses', get_expenses_with_pagination, 'get_expenses')
-    path('image/uploader/', uploadImage),
+    path('image/uploader/', uploadImage, name="image_uploader"),
     re_path(r'^api/', include(v1_api.urls)),
 ]
