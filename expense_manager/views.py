@@ -158,7 +158,8 @@ def dashboard(request):
                                                                             "has_previous": has_previous,
                                                                             "has_next": has_next,
                                                                             "total_page_number": total_page_number,
-                                                                            "page_number": page_number})
+                                                                            "page_number": page_number,
+                                                                            "username":request.user.username})
     else:
         return Http404('Error Not Found!')
 
