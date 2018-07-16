@@ -36,7 +36,7 @@ class Budget(TimeStampedModel):
         unique_together = ('user', 'month', 'year')
 
     def __str__(self):
-        return str(self.month)+"-"+str(self.year)
+        return '%d-%d' % (self.month, self.year)
 
 
 class UserExpenseQuerySet(models.QuerySet):
@@ -67,16 +67,19 @@ class UserExpensesManager(models.Manager):
 class Expense(TimeStampedModel):
     user = models.ForeignKey(User, related_name='expenses',
                              on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=72)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     photo = models.ImageField(upload_to='', null=True, blank=True)
     objects = models.Manager()
     manager = UserExpensesManager()
 
-    class Meta:
-        ordering = ('-created',)
-
     @property
     def get_budget(self):
         budget = self.user.budget.filter(month=self.created.month)
-        return budget if budget else ''
+        return budget[0].budget if budget else None
+
+    def __str__(self):
+        return '%s, %s, %f' % (self.user, self.name, self.price)
+    
+    class Meta:
+        ordering = ('-created',)

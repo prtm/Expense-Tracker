@@ -144,7 +144,7 @@ def dashboard(request):
     if page_number > total_page_number:
         page_number = total_page_number
 
-    has_previous = (page_number != 1)
+    has_previous = (page_number != 1 and page_number!=0)
     has_next = (page_number != total_page_number)
 
 
