@@ -154,6 +154,7 @@ function editIconListener() {
         var name = $(this).closest('div').parent().find('.col-sm-4').text();
         var price = $(this).closest('div').parent().find('.text-center').text();
         openAddEditModal(false, uid, name, price)
+        e.stopPropagation(); //stop parent click from triggered
     });
 }
 
@@ -194,6 +195,7 @@ function trashIconListener() {
         $('#delete-name').text("Name: " + name)
         $('#delete-price').text("Price: " + price)
         $('#delete-expense').data('uid', $(this).data('uid'))
+        e.stopPropagation(); //stop parent click from triggered
     });
 }
 

@@ -94,7 +94,9 @@ ml-5{
     cursor: pointer;
 }
 
-.col-name {}
+.col-name {
+    color: teal;
+}
 
 .list-ritem:hover {
     background-color: #f2f2f2;

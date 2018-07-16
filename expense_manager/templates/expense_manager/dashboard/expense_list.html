@@ -6,23 +6,34 @@
 
 </div>
 
-{% for expense in expenses %} 
-{% if expense.photo %}
-<div class="row list-ritem image-open" data-url="{{ expense.photo }}" data-toggle="modal" data-target="#imageModal">
-    {% else %}
-    <div class="row list-ritem">
-        {% endif %}
-        <div class="col-sm-4 col-name">{{ expense.name }}</div>
-        <div class="col-sm-5 text-center">₹{{ expense.price }}</div>
-        <div class="col-sm-2 text-center" data-toggle="modal" style="padding-right: 0">
-            <span>
-                <i class="fas fa-edit"></i>
-            </span>
+{% for expense in expenses %} {% if tastypie_image_url == 'T' and expense.photo %}
+<div class="row list-ritem image-open" data-url="{{ expense.photo.url }}" data-toggle="modal" data-target="#imageModal">
+    {% elif expense.photo %}
+    <div class="row list-ritem image-open" data-url="{{ expense.photo }}" data-toggle="modal" data-target="#imageModal">
+        {% else %}
+        <div class="row list-ritem">
+            {% endif %} {% if expense.photo %}
+
+            <div class="col-sm-4 col-name">
+                {{ expense.name }}
+            </div>
+            {% else %}
+            <div class="col-sm-4">{{ expense.name }}</div>
+
+            {% endif %}
+
+
+
+            <div class="col-sm-5 text-center">₹{{ expense.price }}</div>
+            <div class="col-sm-2 text-center" data-toggle="modal" style="padding-right: 0">
+                <span>
+                    <i class="fas fa-edit"></i>
+                </span>
+            </div>
+            <div class="col-sm-1 text-right" data-toggle="modal" data-target="#deleteModal">
+                <span>
+                    <i class="fas fa-trash-alt" data-uid='{{ expense.id }}'></i>
+                </span>
+            </div>
         </div>
-        <div class="col-sm-1 text-right" data-toggle="modal" data-target="#deleteModal">
-            <span>
-                <i class="fas fa-trash-alt" data-uid='{{ expense.id }}'></i>
-            </span>
-        </div>
-    </div>
-    {% endfor %} {% if footer %} {% include 'expense_manager/dashboard/pagination.html' %} {% endif %}
+        {% endfor %} {% if footer %} {% include 'expense_manager/dashboard/pagination.html' %} {% endif %}
