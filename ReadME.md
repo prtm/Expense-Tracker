@@ -46,6 +46,13 @@ Expense Manager is simple, stable and feature-rich web app that is designed for 
 ```
     cp docs/extras/local_example.py website/settings/local.py
 ```
+6. python manage.py createsuperuser
+7. login with admin credentials at
+```
+ /admin/
+ ```
+8. create group <strong>expense_manger</strong>
+9.  add permissions for expense_manger app
 
 
 ## Suggestions
