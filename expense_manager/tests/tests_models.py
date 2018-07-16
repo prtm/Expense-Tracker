@@ -16,7 +16,7 @@ class ExpenseMethodTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Setting up non-modified objects used by all test methods
-        user = User.objects.create(username='test_user')
+        user = User.objects.create_user(username='test_user')
         Expense.objects.create(user=user, name='Trip to pyconf', price=10000)
         Budget.objects.create(user=user, budget=25000.27)
 
@@ -54,7 +54,7 @@ class BudgetMethodTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Setting up non-modified objects used by all test methods
-        user = User.objects.create(username='test_user')
+        user = User.objects.create_user(username='test_user')
         Budget.objects.create(user=user, budget=35000.21)
 
     def test_budget_max_digits(self):
