@@ -202,8 +202,8 @@ function budgetBtnListener() {
     $('#budgetModal').on('shown.bs.modal', function (e) {
         var budget = $('#budgetButton').data('budget')
         $('#budget').val(budget)
-      })
-      
+    })
+
 
 
     // budget save btn click listener
@@ -211,7 +211,7 @@ function budgetBtnListener() {
         var budgetInput = $('#budget').val()
         var uid = $(this).data('uid')
         // budget not set for this month yet
-        if(uid == -1){
+        if (uid == -1) {
             $.ajax({
                 url: '/api/v1/budget/',
                 type: 'POST',
@@ -231,13 +231,13 @@ function budgetBtnListener() {
                     console.log("complete", response.statusText)
                     location.reload()
                 },
-                error:function(response){
+                error: function (response) {
                     console.log(response);
-                    
+
                 }
             });
 
-        }else{
+        } else {
             // update budget for this month
             $.ajax({
                 url: '/api/v1/budget/' + uid + "/",
@@ -258,13 +258,13 @@ function budgetBtnListener() {
                     console.log("complete", response.statusText)
                     location.reload()
                 },
-                error:function(response){
+                error: function (response) {
                     console.log(response);
-                    
+
                 }
             });
         }
-        
+
     });
 }
 
@@ -278,6 +278,37 @@ function closeAddEditModalBtnListener() {
 }
 
 
+function imageModalBtnClickListener() {
+    $('.image-open').on('click', function (e) {
+        var uid = $(this).find('.fa-trash-alt').data('uid')
+        $('#removeImageBtn').data('uid', uid)
+        $('#expenseModalImg').prop('src', $(this).data('url'))
+    })
+
+    $('#removeImageBtn').on('click', function (e) {
+        $.ajax({
+            url: '/api/v1/expense/' + $(this).data('uid') + '/',
+            type: 'PATCH',
+            data: JSON.stringify({
+                'photo': ''
+            }),
+            async: true,
+            cache: false,
+            contentType: 'application/json',
+            beforeSend: function () {
+                console.log('Uploading...');
+                // $('.upload-progress').show();
+            },
+            complete: function (response) {
+                // $('.upload-progress').hide();
+                clearformAddEdit()
+                console.log("complete", response.statusText)
+                location.reload()
+            }
+        });
+    });
+}
+
 
 // on document ready set listeners
 $(function () {
@@ -288,4 +319,5 @@ $(function () {
     deleteExpenseBtnListener()
     budgetBtnListener()
     closeAddEditModalBtnListener()
+    imageModalBtnClickListener()
 });
