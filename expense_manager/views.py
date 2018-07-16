@@ -1,6 +1,7 @@
 # stdlib
 import json
 import math
+import os
 # import copy
 from datetime import date
 
@@ -169,16 +170,16 @@ def uploadImage(request):
     if request.method == 'POST' and request.FILES.get('photo'):
         photo = request.FILES['photo']
 
-        file_type = photo.url.split('.')[-1]
+        fs = FileSystemStorage()
+        filename = fs.save(photo.name, photo)
+        file_type = filename.split('.')[-1]
         file_type = file_type.lower()
         # [ Future changes ] python-magic library required to check correct mime type
         if file_type not in ['png', 'jpg']:
+            os.remove(os.path.join(fs.location,filename))
             return JsonResponse({'error':'Image format must be png or jpg'}, status=400)
-
-        fs = FileSystemStorage()
-        filename = fs.save(photo.name, photo)
-        uploaded_file_url = fs.url(filename)
+        # uploaded_file_url = fs.url(filename)
         return JsonResponse({
-            'uploaded_file_url': uploaded_file_url[1:]
+            'uploaded_file_url': filename
         })
     return JsonResponse({'error':'Error Not Found!'}, status=404)
