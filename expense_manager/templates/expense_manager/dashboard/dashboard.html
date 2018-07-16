@@ -13,12 +13,7 @@
                     aria-selected="true">Dashboard</a>
                 <a class="nav-link" id="v-pills-all-expenses-tab" data-toggle="pill" href="#v-pills-all-expenses" role="tab" aria-controls="v-pills-all-expenses"
                     aria-selected="false">All expenses</a>
-                <a class="nav-link" id="v-pills-report-tab" data-toggle="pill" href="#v-pills-report" role="tab" aria-controls="v-pills-report"
-                    aria-selected="false">Report</a>
-                <a class="nav-link" id="v-pills-analytics-tab" data-toggle="pill" href="#v-pills-analytics" role="tab" aria-controls="v-pills-analytics"
-                    aria-selected="false">Analytics</a>
-                <a class="nav-link" id="v-pills-contact-tab" data-toggle="pill" href="#v-pills-contact" role="tab" aria-controls="v-pills-contact"
-                    aria-selected="false">Contact Support</a>
+                <!-- <a class="`elected="false">Contact Support</a> -->
             </div>
         </div>
         <div class="col-md-9 shadow" style="background-color: white;">
@@ -29,7 +24,7 @@
                 <div class="tab-pane fade p-15" id="v-pills-all-expenses" role="tabpanel" aria-labelledby="v-pills-all-expenses-tab">
                     {% include 'expense_manager/dashboard/expense_list.html' with expenses=all_expenses footer=True %}
                 </div>
-                <div class="tab-pane fade p-15" id="v-pills-report" role="tabpanel" aria-labelledby="v-pills-report-tab">
+                <!-- <div class="tab-pane fade p-15" id="v-pills-report" role="tabpanel" aria-labelledby="v-pills-report-tab">
                     {% include 'expense_manager/dashboard/report_tab_content.html' %}
                 </div>
                 <div class="tab-pane fade p-15" id="v-pills-analytics" role="tabpanel" aria-labelledby="v-pills-analytics-tab">
@@ -37,7 +32,7 @@
                 </div>
                 <div class="tab-pane fade p-15" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-contact-tab">
                     {% include 'expense_manager/dashboard/contact_support_tab_content.html' %}
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -48,6 +43,8 @@
     {% include 'expense_manager/modal/image.html' %}
     <!-- delete modal -->
     {% include 'expense_manager/modal/delete.html' %}
+    <!-- complete modal -->
+    {% include 'expense_manager/modal/complete.html' %}
 </div>
 
 <script>

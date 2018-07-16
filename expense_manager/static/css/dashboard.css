@@ -69,7 +69,7 @@ ml-5{
     border-right: 1px solid #ccc;
 }
 
-.col-md-3:hover {
+.first-row .col-md-4:hover {
     cursor: pointer;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
 }
