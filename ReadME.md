@@ -1,9 +1,33 @@
 # Expense Tracker
 
+<img src="accounts/static/images/expense_logo.png" alt="Expense Tracker" width="200px" height="200px"/>
+
+Expense Manager is simple, stable and feature-rich web app that is designed for manage your daily bills.
+
+## Features
+
+* Open Source
+* Powered by Django, Bootstrap
+* Filtering by name, price
+* Sorting by Date, Image Availability
+* Total Expense Monthly with budget feature
 
 
+## Table of Contents
+1. [ScreenShots](#screenshots)
+2. [Installation](#installation)
 
-## Setup
+## Screenshots
+
+![Login Page](docs/images/login.png "Login")
+
+![Register Page](docs/images/register.png "Register")
+
+![Dashboard Page](docs/images/dashboard.png "Dashboard")
+
+![Expense List Page](docs/images/login.png "Expense List")
+
+## Installation
 
 1. [Python3](https://www.python.org/downloads/) required
 2. [Pipenv](https://docs.pipenv.org/) required
@@ -22,3 +46,7 @@
 ```
     cp docs/extras/local_example.py website/settings/local.py
 ```
+
+
+## Suggestions
+Open to any suggestions and help provided.
